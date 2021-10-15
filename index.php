@@ -1,6 +1,5 @@
 <?php include("conexion/db.php") ?>
 <?php include("includes/header.php") ?>
-<link rel="stylesheet" href="css/pacientes.css">
 <?php include("includes/navegacion.php") ?>
 
 <div class="container p-4">
@@ -22,35 +21,48 @@
          ?>
 
             <div class="card card-body">
-                <form action="guardar_datos.php" method="POST">
+                <form class="needs-validation" name="frm_pacientes" id="frm_pacientes" 
+                    action="guardar_datos.php" method="POST" novalidate>
                     <div class="form-group p-1">
                     <label for="nombre" class="form-label">Nombres</label>
                       <input type="text" name="nombre" id="nombre" class ="form-control"
                        placeholder="Nombre paciente" autofocus required>
+                       <div class="invalid-feedback">
+                         Por favor ingrese nombres del paciente
+                        </div>
                     </div>
                     <div class="form-group p-1">
                       <label for="edad" class="form-label">Edad</label>
-                       <select class="form-select" name="edad" id="edad" onchange="mostrarDiv()" >
-                       <option value ="0" selected>--Edad--</option>
+                       <select class="form-select" name="edad" id="edad" onchange="mostrarDiv()" required>
+                       <option disabled value="" selected>--Edad--</option>
                        <?php  for ($i=1;$i<=110;$i++) {
-    echo "<option value='".$i."'>".$i."</option>";
-} ?>
+                          echo "<option value='".$i."'>".$i."</option>";
+                        } ?>
                       </select>
+                      <div class="invalid-feedback">
+                         Por favor seleccione la edad
+                        </div>
                     </div>
                     <div class="form-group p-1">
                      <label for="hclinica" class="form-label">Numero Historia clinica</label>
                       <input type="text" name="hclinica" id="hclinica" class ="form-control"
                        placeholder="Nro. Historia clinica" required>
+                       <div class="invalid-feedback">
+                         Por favor ingrese Nro. historia clinica
+                        </div>
                     </div>
 
                     <div id ="ninos" class="d-none" >
                     <label for="relpesoest" class="form-label">Relación peso-estatura</label>
                      <select class="form-select" name="relpesoest" id="relpesoest">
-                        <option value ="0" selected>Relación peso estatura</option>
+                        <option disabled value ="0" selected>Relación peso estatura</option>
                         <?php  for ($i=1;$i<=4;$i++) {
-    echo "<option value='".$i."'>".$i."</option>";
-} ?>
+                         echo "<option value='".$i."'>".$i."</option>";
+                          } ?>
                       </select>
+                      <div class="invalid-feedback">
+                         Por favor seleccione la relación peso - estatura
+                        </div>
                     </div>
 
                     <div id="joven" class="d-none">
@@ -61,10 +73,10 @@
                       </select>
                       <label for="aniofuma" class="form-label">Años de fumador</label>
                        <select class="form-select" name="aniofuma" id="aniofuma">
-                       <option value ="0" selected>Años fumador</option>
+                       <option disabled value ="0" selected>Años fumador</option>
                        <?php  for ($i=1;$i<=20;$i++) {
-    echo "<option value='".$i."'>".$i."</option>";
-} ?>
+                            echo "<option value='".$i."'>".$i."</option>";
+                            } ?>
                       </select>
                       
                     </div>
@@ -79,11 +91,12 @@
 
                     
                     <input type="submit" class="btn btn-success btn-block" 
-                    name ="save_paciente" value="Guardar">
+                    name ="save_paciente" id ="save_paciente" value="Guardar">
                 </form>
             </div>
         </div>
         <div class="col-md-8">
+            <!--Listar los datos registrados-->
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -102,7 +115,7 @@
                 <tbody>
                     <?php 
                        //Consultar los datosdel paciente
-                       $query = "SELECT * FROM T_PACIENTES";
+                       $query = "SELECT * FROM T_PACIENTES order by 1 desc";
                        $result = mysqli_query($conn,$query);
                        while($row = mysqli_fetch_array($result)){ ?>
                        <tr>

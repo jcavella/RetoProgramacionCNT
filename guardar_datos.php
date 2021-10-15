@@ -14,12 +14,20 @@ if(isset($_POST['save_paciente'])){
       $priodidad = 0;
       $riesgo = 0;
 
+      if($relpesoest==""){
+         $relpesoest ="0";
+      }
+      if($aniofuma ==""){
+         $aniofuma="0";
+      }
+
       $priodidad =calcularPrioridad($edad,$relpesoest,$fumador,$aniofuma,$dieta);
       $riesgo = calcularRiesgo($edad,$priodidad);
 
       $query = "INSERT INTO T_PACIENTES(nombre,edad,n_historia_clinica,prioridad,riesgo,tiene_dieta,fumador,annio_fumador,rel_peso_est)
                 VALUES('$nombre',$edad,$hclinica,$priodidad, $riesgo,$dieta,$fumador,$aniofuma,$relpesoest)";
-      //echo $query;
+      echo $query;
+      //echo "peso:".$relpesoest;
 
       $result= mysqli_query($conn,$query);
       if(!$result){
