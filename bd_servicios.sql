@@ -57,7 +57,7 @@ CREATE TABLE `t_pacientes` (
   `id` int(11) NOT NULL,
   `nombre` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `edad` int(11) NOT NULL,
-  `n_historia_clinica` int(11) NOT NULL,
+  `n_historia_clinica` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `prioridad` float DEFAULT NULL,
   `riesgo` float DEFAULT NULL,
   `tiene_dieta` int(1) DEFAULT 0,
